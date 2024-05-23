@@ -38,9 +38,7 @@ const LoginForm = ({ history }) => {
             <span className="text-danger d-block text-small fst-italic mb-2"></span>
             <label htmlFor="password" id="password" className="form-label mb-2">Mật khẩu: </label>
             <input type="password" name="password" id="password" className="form-control mb-2" value={password} onChange={(e) => setPassword(e.target.value.trim())} />
-
             <span className="text-danger d-block text-small fst-italic mb-2"></span>
-            <a href="#" className="d-block text-start text-decoration-none mb-2">Quên mật khẩu ?</a>
             <input type="button" name="btn_login" className="btn btn-primary" value="Đăng nhập" onClick={handleLogin} />
           </form>
         </div>

@@ -14,6 +14,7 @@ import Users from "./views/Users";
 import BlogPosts from "./views/BlogPosts";
 import LoginRequire from "./hoc/LoginRequire";
 import LoginForm from "./views/LoginForm";
+import Comments from "./views/Comments";
 
 export default [
   {
@@ -39,6 +40,11 @@ export default [
     component: LoginRequire(AddNewPost)
   },
   {
+    path: "/edit-old-post/:id",
+    layout: DefaultLayout,
+    component: LoginRequire(AddNewPost)
+  },
+  {
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
@@ -52,6 +58,11 @@ export default [
     path: "/users",
     layout: DefaultLayout,
     component: LoginRequire(Users)
+  },
+  {
+    path: "/comments",
+    layout: DefaultLayout,
+    component: LoginRequire(Comments)
   },
   {
     path: "/blog-posts",

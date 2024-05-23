@@ -7,16 +7,14 @@ import {
   Col,
   Card,
   CardBody,
-  CardFooter,
   Badge,
-  Button
 } from "shards-react";
-import { get as getPosts } from "../services/httpRequest"
+import { get as getPosts, remove as deletePost } from "../services/httpRequest"
 
 import defaultAvatar from "../images/user-profile/default.jpg"
 import PageTitle from "../components/common/PageTitle";
-import { Link } from "react-router-dom";
 import Pagination from "../components/common/Pagination";
+import { withRouter } from "react-router-dom";
 
 const options = {
   weekday: 'long',
@@ -35,6 +33,23 @@ class BlogPosts extends React.Component {
     }
 
   }
+
+  handleRemovePost = async (postId) => {
+    try {
+      const deletedPost = await deletePost(`/admin/blog-posts/delete-post/${postId}`);
+      console.log(deletedPost);
+      this.handleGetPostLink(`https://nhmhdemo.click/api/admin/blog-posts?page=${this.state.currentPage}`)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  handleEditPost = (post) => {
+    const { history } = this.props;
+    // Push a new entry onto the history stack, with state
+    history.push(`/edit-old-post/${post.id}`, { postEdit: post });
+  }
+
   handleGetPostLink = async (link) => {
     const posts = await fetch(link, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -58,16 +73,24 @@ class BlogPosts extends React.Component {
     this.setState({
       currentPage: posts.posts_list.current_page
     })
-
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   // Check if the specific prop has changed
+  //   console.log(prevState);
+  //   if (this.state.currentPage != prevState.currentPage) {
+  //     // Perform some action when the prop changes
+  //   }
+  // }
+
   setPostList = (newPosts) => {
     this.setState({ postList: newPosts });
   }
 
-
   setLinkList = (newLinks) => {
     this.setState({ links: newLinks });
   }
+
   render() {
     return (
       <Container fluid className="main-content-container px-4">
@@ -82,8 +105,18 @@ class BlogPosts extends React.Component {
               <Card small className="card-post card-post--1">
                 <div
                   className="card-post__image"
-                  style={{ backgroundImage: `url(${post.post_thumbnail})` }}
+                  style={{ backgroundImage: `url(${post.post_thumbnail})`, position: "relative" }}
                 >
+                  <i className="fa-solid fa-rectangle-xmark" style={{
+                    fontSize: "25px",
+                    color: "red",
+                    position: "absolute",
+                    top: "5px",
+                    left: "5px",
+                    cursor: "pointer"
+                  }}
+                    onClick={() => this.handleRemovePost(post.id)}
+                  ></i>
                   <Badge
                     pill
                     className={`card-post__category bg-blue`}
@@ -100,11 +133,17 @@ class BlogPosts extends React.Component {
                     </a>
                   </div>
                 </div>
+
                 <CardBody>
                   <h5 className="card-title">
-                    <a href="#" className="text-fiord-blue">
+                    <div
+                      className="text-fiord-blue"
+                      style={{
+                        cursor: "pointer"
+                      }}
+                      onClick={() => this.handleEditPost(post)}>
                       {post.post_title}
-                    </a>
+                    </div>
                   </h5>
                   <p className="card-text d-inline-block mb-3" dangerouslySetInnerHTML={{
                     __html: post.post_content
@@ -127,4 +166,4 @@ class BlogPosts extends React.Component {
   }
 }
 
-export default BlogPosts;
+export default withRouter(BlogPosts);

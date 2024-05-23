@@ -6,7 +6,7 @@ const Pagination = ({ links, currentPage, handleGetPostLink }) => {
       <ul className="pagination">
         {links.map((link, index) => {
           return (
-            <li key={index} className={`page-item ${link.active && "active"} ${!link.url && "disabled"}`}><div className="page-link" onClick={() => { handleGetPostLink(link.url) }}>{link.label}</div></li>
+            <li key={index} className={`page-item ${link.active && "active"} ${!link.url && "disabled"}`}><div className="page-link" onClick={() => { handleGetPostLink(link.url + "&sortBy=created_at&sortOrder=desc") }}>{link.label}</div></li>
           )
         })}
       </ul>

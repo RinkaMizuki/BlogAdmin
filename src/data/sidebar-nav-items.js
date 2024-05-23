@@ -26,6 +26,11 @@ export default function () {
       to: "/users",
     },
     {
+      title: "Comments",
+      htmlBefore: '<i class="material-icons">table_chart</i>',
+      to: "/comments",
+    },
+    {
       title: "User Profile",
       htmlBefore: '<i class="material-icons">person</i>',
       to: "/user-profile-lite",

@@ -6,7 +6,7 @@ import $ from "jquery";
 // import "react-quill/dist/quill.snow.css";
 // import "../../assets/quill.css";
 
-const RichEditor = ({ setPostTitle, setPostContent, postTitle }) => {
+const RichEditor = ({ setPostTitle, setPostContent, postTitle, postContent, initValue }) => {
   return (
     <Card small className="mb-3">
       <CardBody>
@@ -16,7 +16,7 @@ const RichEditor = ({ setPostTitle, setPostContent, postTitle }) => {
           <Editor
             apiKey='xl972kp9v6u3mg2d8rzspy3mc2qwxkqbgtlktw9dwwrkggnk'
             init={{
-              height: "1000px",
+              height: "500px",
               plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
               toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image imageupload media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
               setup: function (editor) {
@@ -50,7 +50,7 @@ const RichEditor = ({ setPostTitle, setPostContent, postTitle }) => {
               ],
               ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
             }}
-            initialValue=""
+            initialValue={initValue}
             onEditorChange={(newValue, editor) => {
               setPostContent(newValue)
             }}

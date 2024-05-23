@@ -10,9 +10,9 @@ const Users = () => {
 
   const [listUser, setListUser] = useState([]);
   const [links, setLinks] = useState([]);
+  const [currPage, setCurrPage] = useState(1);
   const [removeUsers, setRemoveUsers] = useState([]);
   const [userEdit, setUserEdit] = useState(null);
-  const [currPage, setCurrPage] = useState(1);
   const [file, setFile] = useState(null);
   const usernameRef = useRef(null);
   const phoneRef = useRef(null);
@@ -197,7 +197,9 @@ const Users = () => {
                       </td>
                       <td>{user.id}</td>
                       <td>{new Date(user.created_at).toLocaleDateString()}</td>
-                      <td className="d-flex align-items-center gap-3">
+                      <td className="d-flex align-items-center gap-3" style={{
+                        borderBottom: "unset"
+                      }}>
                         <img src={user.avatar || defaultAvatar} alt={user.url} style={{
                           width: "30px",
                           height: "30px",
