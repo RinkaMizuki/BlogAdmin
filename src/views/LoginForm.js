@@ -9,7 +9,7 @@ const LoginForm = ({ history }) => {
 
   const handleLogin = async () => {
     try {
-      const loginData = await postLoginUser('/login-user', {
+      const loginData = await postLoginUser('/login-admin', {
         email,
         password
       });
